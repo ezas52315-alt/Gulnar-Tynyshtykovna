@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Конституциялық құндылықтар: Қазақ тілі мен әдебиеті</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkBlue: '#0A192F',
+                        sepia: '#F4EADD',
+                        darkRed: '#7F1D1D',
+                        gold: '#D4AF37',
+                        cyberNeon: '#00f3ff',
+                        cyberPink: '#ff003c',
+                        cyberBg: '#090a0f'
+                    },
+                    fontFamily: {
+                        playfair: ['"Playfair Display"', 'serif'],
+                        caveat: ['"Caveat"', 'cursive'],
+                        mono: ['"Share Tech Mono"', 'monospace']
+                    },
+                    animation: {
+                        'scanline': 'scan 3s linear infinite',
+                        'glitch': 'glitch-anim 2s infinite',
+                        'pulse-fast': 'pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'progress': 'progress-load 2s ease-in-out infinite'
+                    },
+                    keyframes: {
+                        scan: {
+                            '0%': { transform: 'translateY(-100%)' },
+                            '100%': { transform: 'translateY(100vh)' }
+                        },
+                        'progress-load': {
+                            '0%': { width: '0%' },
+                            '50%': { width: '100%' },
+                            '100%': { width: '0%', left: '100%' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base and Background Styling (Scientific Note Style) */
+        body {
+            background-color: #0A192F;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+            overflow: hidden;
+            color: #1e293b;
+        }
+
+        .floating-node {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(212, 175, 55, 0.2);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+            animation: float 10s infinite ease-in-out alternate;
+            z-index: 0;
+            pointer-events: none;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            100% { transform: translateY(-30px) rotate(360deg); }
+        }
+
+        /* Swiper Container Adjustments */
+        .swiper {
+            width: 100%;
+            height: 85vh;
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+            z-index: 10;
+        }
+        .swiper-slide {
+            background-position: center;
+            background-size: cover;
+            width: 90%;
+            max-width: 600px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Custom Scrollbar */
+        .custom-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.05); 
+            border-radius: 10px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #7F1D1D; 
+            border-radius: 10px;
+        }
+
+        /* Interactive Panel Animation */
+        .interactive-panel {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: rotate(-1deg);
+            cursor: pointer;
+        }
+        .interactive-panel:hover {
+            transform: rotate(0deg) scale(1.03);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            backdrop-filter: blur(8px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            transform: scale(0.9);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        /* Ticker Tape */
+        .ticker-wrap {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            overflow: hidden;
+            background-color: #0A192F;
+            border-top: 2px solid #D4AF37;
+            padding-left: 100%;
+            box-sizing: content-box;
+            z-index: 50;
+        }
+        .ticker {
+            display: inline-block;
+            white-space: nowrap;
+            padding-right: 100%;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+            animation-name: ticker;
+            animation-duration: 45s;
+        }
+        @keyframes ticker {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-100%, 0, 0); }
+        }
+
+        /* Animated Border Panels */
+        .animated-border-box {
+            position: relative;
+            border-radius: 1rem;
+            padding: 3px;
+            overflow: hidden;
+            background: rgba(10, 25, 47, 0.1);
+            margin-bottom: 1rem;
+        }
+        .animated-border-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(transparent, transparent, transparent, #D4AF37, #7F1D1D, transparent);
+            animation: rotate-border 4s linear infinite;
+            animation-delay: var(--delay, 0s);
+        }
+        @keyframes rotate-border {
+            100% { transform: rotate(360deg); }
+        }
+        .animated-border-box-inner {
+            position: relative;
+            background: #F4EADD;
+            border-radius: calc(1rem - 3px);
+            z-index: 1;
+            padding: 1.25rem;
+            height: 100%;
+        }
+
+        /* Accordion transition */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out, margin 0.4s ease-in-out;
+            opacity: 0;
+            margin-top: 0;
+        }
+        .accordion-content.open {
+            max-height: 350px;
+            opacity: 1;
+            margin-top: 1rem;
+        }
+
+        /* Quiz School Window Styles */
+        .school-window {
+            fill: #1e293b;
+            transition: fill 0.5s ease, filter 0.5s ease;
+        }
+        .window-correct {
+            fill: #fef08a; /* Warm Yellow */
+            filter: drop-shadow(0 0 15px #fef08a);
+        }
+        .window-incorrect {
+            fill: #ef4444; /* Red */
+            filter: drop-shadow(0 0 15px #ef4444);
+        }
+    </style>
+</head>
+<body class="antialiased relative h-screen w-screen flex flex-col items-center justify-center">
+
+    <div class="floating-node w-32 h-32 top-10 left-10 opacity-30"></div>
+    <div class="floating-node w-16 h-16 bottom-20 right-20 opacity-40" style="animation-delay: -2s;"></div>
+    <div class="floating-node w-24 h-24 top-1/2 right-1/4 opacity-20" style="animation-delay: -5s;"></div>
+
+    <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+
+            <!-- Slide 1: Title and Hero -->
+            <div class="swiper-slide">
+                <div class="bg-sepia w-full h-full rounded-[2rem] shadow-2xl border-4 border-darkBlue p-1 flex flex-col relative overflow-hidden">
+                    <div class="flex items-center justify-between p-4 border-b border-gray-300">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-darkBlue flex items-center justify-center text-gold font-playfair font-bold text-xl">ГТ</div>
+                            <div>
+                                <h3 class="font-playfair font-bold text-darkBlue text-sm">Жаңа білім парадигмасы</h3>
+                                <p class="text-xs text-gray-500 font-sans">Әдістемелік сессия</p>
+                            </div>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" /></svg>
+                    </div>
+                    
+                    <div class="flex-1 overflow-y-auto custom-scroll p-6 pb-10">
+                        <h1 class="font-playfair text-xl md:text-2xl font-black text-darkRed mb-6 text-center leading-tight">
+                            «Конституциялық құндылықтар – жаңа бағдар: қазақ тілі мен әдебиеті сабақтарында адам капиталы, экологиялық мәдениет, академиялық адалдық және ЖИ»
+                        </h1>
+                        <img src="https://www.zakon.kz/pbi/WEBP/2026-02-11/file-4859ee01-11a9-45f1-91e8-db773b979c06/800x450.orig.webp" alt="Конституция құндылықтары" class="w-full h-64 md:h-72 object-contain bg-white/50 rounded-xl shadow-md mb-6 border-2 border-darkBlue">
+                        
+                        <div class="animated-border-box" style="--delay: 0s;">
+                            <div class="animated-border-box-inner text-justify shadow-inner font-playfair text-lg">
+                                <p>2026 жылғы тарихи референдумда қабылданған жаңа Конституция білім беру жүйесінің, оның ішінде тіл мен әдебиетті оқытудың жаңа философиясын айқындады.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="animated-border-box" style="--delay: -2s;">
+                            <div class="animated-border-box-inner text-justify shadow-inner font-playfair text-lg">
+                                <p>Ендігі мақсат – тек ереже жаттату емес. Біздің мұрат – Ата Заңда көрсетілген <span class="font-bold text-darkRed">«адам капиталы»</span>, <span class="font-bold text-darkRed">«экологиялық мәдениет»</span> және <span class="font-bold text-darkRed">«жасанды интеллект»</span> құндылықтарын ұлттық әдебиет арқылы оқушы бойына сіңіру.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 2: Адам капиталы және Экологиялық мәдениет -->
+            <div class="swiper-slide">
+                <div class="bg-sepia w-full h-full rounded-[2rem] shadow-2xl border-4 border-darkBlue p-6 overflow-y-auto custom-scroll relative">
+                    <span class="absolute top-4 right-4 text-gray-400 font-playfair text-4xl opacity-30">02</span>
+                    <h2 class="font-playfair text-2xl font-bold text-darkBlue mb-4 border-b-2 border-darkRed pb-2">Адам капиталы және Эко-мәдениет</h2>
+                    
+                    <div class="space-y-4 font-playfair text-lg leading-relaxed mt-4">
+                        <p><span class="font-bold text-darkRed">Адам капиталы:</span> Әдебиет сабағындағы басты байлық – оқушының сыни ойлауы мен сөйлеу мәдениеті. Біз кейіпкерлерді талқылау арқылы оқушыны өмірлік шешімдер қабылдауға дайындаймыз.</p>
+                        <p><span class="font-bold text-darkRed">Экологиялық мәдениет:</span> Ата Заңда қоршаған ортаны қорғау міндеттелген. Бұл тақырыпты 7-сыныпта М. Әуезовтің «Көксерек» повесін оқыту арқылы қалай жандандырамыз? Табиғат пен адам арасындағы байланысты қалай ұғындырамыз?</p>
+                        
+                        <div class="interactive-panel mt-6 bg-darkBlue text-sepia p-5 rounded-2xl shadow-xl" onclick="openModal('modal-eco-case')">
+                            <div class="flex items-center gap-3">
+                                <span class="text-3xl">🌱</span>
+                                <h3 class="font-playfair font-bold text-xl">Әдістемелік Кейс</h3>
+                            </div>
+                            <p class="font-caveat text-xl mt-2 text-gold">Әдебиеттегі экологияны талқылау үшін басыңыз...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3: ЖИ, Академиялық адалдық және А. Байтұрсынов -->
+            <div class="swiper-slide">
+                <div class="bg-sepia w-full h-full rounded-[2rem] shadow-2xl border-4 border-darkBlue p-6 overflow-y-auto custom-scroll relative flex flex-col">
+                    <span class="absolute top-4 right-4 text-gray-400 font-playfair text-4xl opacity-30">03</span>
+                    <h2 class="font-playfair text-2xl font-bold text-darkBlue mb-2 border-b-2 border-darkRed pb-2">ЖИ және Академиялық адалдық</h2>
+                    
+                    <div class="flex-1 mt-2">
+                        <img src="https://massaget.kz/userdata/blogs/blogs_29067/image_l.jpg" alt="Ахмет Байтұрсынұлы" class="w-full h-48 md:h-64 object-contain bg-white rounded-xl shadow-md mb-4 border-2 border-gold">
+                        
+                        <p class="font-playfair text-lg leading-relaxed text-justify">
+                            Конституциялық құндылық ретінде бекітілген <span class="font-bold">Жасанды Интеллект</span> білім беруде үлкен мүмкіндік береді. Алайда, оқушының эссесін ЖИ жазып берсе, <span class="text-darkRed font-bold">Академиялық адалдық</span> қайда қалады? 
+                        </p>
+                        <p class="font-playfair text-lg leading-relaxed text-justify mt-2">
+                            Шешім – эссені жаздыру емес, ЖИ қателігін табу арқылы сыни ойлауды дамыту. Ахмет Байтұрсынов шығармашылығын мысалға алайық.
+                        </p>
+                    </div>
+
+                    <div class="interactive-panel mt-4 bg-darkRed text-sepia p-5 rounded-2xl shadow-xl" onclick="openModal('modal-ai-baitursynov')">
+                        <div class="flex items-center gap-3">
+                            <span class="text-3xl">🤖</span>
+                            <h3 class="font-playfair font-bold text-xl">Интерактивті тапсырма</h3>
+                        </div>
+                        <p class="font-caveat text-2xl mt-2 text-gold">«ЖИ галлюцинациясы және тапсырма». Басыңыз!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 4: Қорытынды және Инсайттар -->
+            <div class="swiper-slide">
+                <div class="bg-sepia w-full h-full rounded-[2rem] shadow-2xl border-4 border-darkBlue p-6 flex flex-col relative">
+                    <span class="absolute top-4 right-4 text-gray-400 font-playfair text-4xl opacity-30">04</span>
+                    <h2 class="font-playfair text-2xl font-bold text-darkBlue mb-4 border-b-2 border-darkRed pb-2">Жаңа бағдар нәтижесі</h2>
+                    
+                    <div class="space-y-4 font-playfair text-lg leading-relaxed flex-1 overflow-y-auto custom-scroll">
+                        <p>Қазақ тілі мен әдебиеті пәні тек грамматика мен жаттау емес, ол – Конституциялық құндылықтарды (адам капиталы, эмпатия, заманауи технология) сіңіруші негізгі құрал.</p>
+
+                        <div class="mt-4 bg-darkBlue text-sepia p-5 rounded-xl shadow-lg border-2 border-gold text-center">
+                            <h3 class="text-gold font-bold mb-2 uppercase tracking-wider text-sm">Бүгінгі күннің басты инсайты:</h3>
+                            <p class="font-caveat text-3xl leading-snug">"Академиялық адалдық – технологиядан бас тарту емес, оны саналы түрде басқару."</p>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 gap-4 mt-6">
+                            <button onclick="openModal('modal-insights-list')" class="w-full bg-gradient-to-r from-darkBlue to-indigo-900 text-white py-4 px-2 rounded-xl font-bold font-playfair text-lg shadow-[0_0_15px_rgba(10,25,47,0.5)] hover:scale-[1.02] transition-transform flex items-center justify-center gap-2 border border-gold">
+                                <span class="animate-pulse text-2xl">💡</span> Пән мұғалімдеріне 9 инсайт
+                            </button>
+                            <button onclick="openModal('modal-quiz'); initQuiz();" class="w-full bg-gradient-to-r from-darkRed to-red-800 text-sepia py-4 px-2 rounded-xl font-bold font-playfair text-lg shadow-[0_0_15px_rgba(127,29,29,0.5)] hover:scale-[1.02] transition-transform flex items-center justify-center gap-2 border border-gold">
+                                <span class="animate-pulse text-2xl">🏫</span> Қорытынды Тест (10 сұрақ)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+
+    <!-- Modal 1: Eco Case -->
+    <div id="modal-eco-case" class="modal-overlay fixed inset-0 z-[100] flex items-center justify-center bg-black/60 px-4">
+        <div class="modal-content bg-sepia max-w-2xl w-full max-h-[90vh] rounded-3xl p-6 md:p-8 border-4 border-green-800 shadow-[0_0_40px_rgba(34,197,94,0.3)] relative flex flex-col">
+            <button onclick="closeModal('modal-eco-case')" class="absolute top-4 right-4 text-darkBlue hover:text-darkRed text-3xl font-bold z-50">&times;</button>
+            <h3 class="font-playfair text-2xl font-bold text-green-800 mb-4 pr-6">🌱 Экологиялық мәдениет: Әдістемелік шешім</h3>
+            <div class="font-playfair text-lg space-y-4 overflow-y-auto custom-scroll pr-2">
+                <p><span class="font-bold text-darkBlue">Тақырып:</span> 7-сынып. Қазақ әдебиеті. Мұхтар Әуезов, «Көксерек» повесі.</p>
+                <p><span class="font-bold text-darkBlue">Жағдаят:</span> Адамның табиғатқа қатыгездігі мен экологиялық тепе-теңдіктің бұзылуын талқылау.</p>
+                <ul class="list-disc pl-5 space-y-2 bg-white/50 p-4 rounded-lg mb-4">
+                    <li>Құрмаштың Көксеректі асырап алуы: бұл мейірімділік пе, әлде табиғат заңдылығына араласу ма?</li>
+                    <li>Қасқырдың табиғи ортасынан үзіліп қалуының салдары. Табиғатқа жасалған қиянаттың қайтарымы.</li>
+                    <li>Экологиялық мәдениет призмасы арқылы кейіпкерлердің іс-әрекетін талдау.</li>
+                </ul>
+                
+                <div class="bg-green-100 p-4 md:p-5 rounded-xl border border-green-300 mt-4">
+                    <p class="font-bold text-green-800 mb-2">📄 Интерактивті жұмыс парақшасы:</p>
+                    <p class="text-base text-green-900 mb-3">Оқушылармен жұмыс жасауға арналған экологиялық мәдениет тақырыбындағы дайын жұмыс парағы (төменнен көре аласыз).</p>
+                    
+                    <div class="w-full h-[300px] md:h-[400px] rounded-lg overflow-hidden border-2 border-green-400 mb-4 relative bg-white">
+                        <!-- Drive Preview (View ўзгертілген) -->
+                        <iframe src="https://drive.google.com/file/d/1-pYz3BTRxwK8UEnUD1MsJJj9vv_e23lY/preview" class="w-full h-full border-0"></iframe>
+                    </div>
+                    
+                    <a href="https://drive.google.com/file/d/1-pYz3BTRxwK8UEnUD1MsJJj9vv_e23lY/view?usp=drivesdk" target="_blank" class="inline-flex items-center justify-center gap-2 w-full bg-green-700 text-white py-3 px-4 rounded-xl hover:bg-green-600 transition font-bold shadow-md">
+                        <span class="text-xl">📥</span> Парақшаны толық ашу / Жүктеп алу
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 2: AI & Baitursynov Task -->
+    <div id="modal-ai-baitursynov" class="modal-overlay fixed inset-0 z-[100] flex items-center justify-center bg-black/80 px-4">
+        <div class="modal-content bg-sepia max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col rounded-3xl border-4 border-darkRed shadow-[0_0_40px_rgba(127,29,29,0.5)] relative">
+            <button onclick="closeModal('modal-ai-baitursynov')" class="absolute top-4 right-4 text-darkBlue hover:text-darkRed text-3xl font-bold z-50">&times;</button>
+            
+            <div class="p-6 md:p-8 bg-sepia z-10 border-b border-gray-300">
+                <h3 class="font-playfair text-2xl font-bold text-darkRed mb-2">🤖 ЖИ және Академиялық адалдық</h3>
+                <p class="font-playfair text-lg font-bold text-darkBlue">А. Байтұрсынұлының «Егіннің бастары» мысалы негізіндегі тапсырма.</p>
+            </div>
+            
+            <div class="p-6 md:p-8 flex-1 overflow-y-auto custom-scroll font-playfair text-base md:text-lg space-y-6">
+                
+                <div class="flex flex-col lg:flex-row gap-6">
+                    <!-- Original Poem Box -->
+                    <div class="flex-1 bg-white p-5 rounded-xl border border-gray-300 shadow-inner h-[250px] overflow-y-auto custom-scroll relative">
+                        <h4 class="font-bold text-darkRed mb-3 sticky top-0 bg-white pb-2 border-b">Түпнұсқа мәтін:</h4>
+                        <p class="italic text-gray-800 leading-relaxed">
+                            Бір адам жас баласын жанына алды,<br>
+                            Екеуі сайран етіп кетіп қалды.<br>
+                            Қыдырып әрлі-берлі жүрді дағы,<br>
+                            Егінші егін еккен жерге барды.<br>
+                            Аралап әр егінді қарап жүрді,<br>
+                            Кез еді пісіп болған егін түрлі.<br>
+                            Бастарын дәнге толған төмен салып,<br>
+                            Бидайлар бейне тағзым етіп тұрды.<br>
+                            Жалғыз-ақ бір бидай тұр көкке қарап,<br>
+                            Бейне бір жалғыз өзін көпке балап.<br>
+                            Баланың сол бидайға көзі түсіп,<br>
+                            Білмекке кетті көңіл жөнін сұрап:<br>
+                            «Құбылып бидайлар тұр басын салып,<br>
+                            Жіберген мырза Құдай нұрға қанып.<br>
+                            «Әй, әке, мұның мәнін түсіндірші,<br>
+                            Бір іске тұрмын өзім қайран қалып.<br>
+                            Бұл Бидай көтеріп тұр басын көкке,<br>
+                            Қарайды шекірейіп өзі көпке.<br>
+                            Өзіне өзгелерді теңгермейтін,<br>
+                            Соншама бұл бидайдың дәні көп пе?»<br>
+                            «Айтайын мұның мәнін, балам, саған,<br>
+                            Шырағым, түрін көріп таңданба оған.<br>
+                            Өзгесі төмен қарап бүгілгенде,<br>
+                            Ойлама кем екен деп бәрі сонан».<br>
+                            Және де әкесі айтты баласына:<br>
+                            «Сұқтанба құр сорайған қарасына.<br>
+                            Құдайым өзгесіне дән бергенде,<br>
+                            Бұл бидай дәнсіз қапты арасында.<br>
+                            Бидайлар басы толық иіліп тұр,<br>
+                            Дән берген қожасына сыйынып тұр.<br>
+                            Басында бұл бидайдың дәні болмай,<br>
+                            Кекірейіп, көкке қарап, бүлініп тұр.<br>
+                            «Елде көп бұл бидайдай адам, - дейді,<br>
+                            Тәкаппар, оны халық, жаман, - дейді.<br>
+                            - Қалпы емес тәккапарлық данышпанның,<br>
+                            Тұтынба бұл мінезді, балам», - дейді.
+                        </p>
+                    </div>
+                    
+                    <!-- AI Output Box -->
+                    <div class="flex-1 bg-gray-100 p-5 rounded-xl border-l-4 border-gray-500 shadow-inner h-[250px] overflow-y-auto custom-scroll relative">
+                        <h4 class="font-bold text-darkBlue mb-3 sticky top-0 bg-gray-100 pb-2 border-b">Оқушының ЖИ (ChatGPT) арқылы жазған эссесі:</h4>
+                        <p class="italic text-gray-700 leading-relaxed">
+                            "Ахмет Байтұрсыновтың «Егіннің бастары» мысалында бидайдың көкке қарап тұруы оның жоғары мәртебесін, өзіне деген сенімділігін және биік мақсаттарға ұмтылуын білдіреді. Басқа бидайлардың басын төмен салуы олардың әлсіздігін көрсетеді. Авторы оқушыларды осы тәкаппар бидайдан үлгі алып, ешкімге бағынбай, басқалардан әрқашан жоғары тұруға шақырады."
+                        </p>
+                    </div>
+                </div>
+
+                <p class="text-center text-xl font-bold text-darkRed mt-4">
+                    <span class="text-darkBlue">Сұрақ:</span> ЖИ мәтініндегі өрескел мағыналық қатені (галлюцинацияны) табыңыз.
+                </p>
+                
+                <div class="bg-blue-50 p-5 rounded-xl border border-blue-200 mt-2">
+                    <p class="font-bold text-darkBlue mb-2 text-lg">Мұғалімге арналған инсайт:</p>
+                    <p class="text-base text-gray-800 leading-relaxed">
+                        Оқушыға ЖИ қолдануға тыйым салмаймыз! Керісінше, осындай «мағынасы бұрмаланған» ЖИ мәтіндерін таратып беріп, оқушыларға түпнұсқамен салыстыруды тапсырамыз. Оқушы ЖИ-дің «көкке қараған бидайды» мықтылық деп қате түсінгенін, ал шын мәнінде А. Байтұрсынов оның **«дәнсіз (білімсіз), тәкаппар адамның»** бейнесі екенін айтқанын дәлелдеп шығуы тиіс. Бұл – нағыз <span class="font-bold text-darkRed">Академиялық адалдық</span> пен сыни ойлауды қалыптастыратын заманауи тәсіл.
+                    </p>
+                </div>
+                
+                <button onclick="closeModal('modal-ai-baitursynov')" class="w-full bg-darkBlue text-gold py-4 rounded-xl font-bold font-playfair hover:bg-opacity-90 transition shadow-lg text-lg mt-4">
+                    Түсінікті, жалғастыру
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Insights List Modal (1-9) -->
+    <div id="modal-insights-list" class="modal-overlay fixed inset-0 z-[110] flex items-center justify-center bg-darkBlue/90 px-4 backdrop-blur-md">
+        <div class="modal-content bg-sepia max-w-4xl w-full max-h-[90vh] rounded-3xl overflow-hidden border-4 border-gold shadow-[0_0_50px_rgba(212,175,55,0.4)] relative flex flex-col">
+            <button onclick="closeModal('modal-insights-list')" class="absolute top-4 right-4 md:right-6 text-darkBlue hover:text-darkRed z-50 text-4xl font-bold drop-shadow-md">&times;</button>
+            
+            <div class="p-6 md:p-8 overflow-y-auto custom-scroll flex-1">
+                <h3 class="font-playfair text-2xl md:text-3xl font-black text-darkRed mb-6 border-b-2 border-darkBlue pb-2">Қазақ тілі мен әдебиеті мұғалімдеріне арналған 9 инсайт</h3>
+                
+                <div class="space-y-4 pb-6 mt-4">
+                    <!-- Item 1 -->
+                    <div class="bg-white rounded-xl shadow-md border-l-4 border-gold p-4 cursor-pointer hover:shadow-lg transition-shadow" onclick="toggleAccordion(this)">
+                        <div class="flex items-center gap-3 font-playfair text-lg text-darkBlue font-bold">
+                            <span class="text-gold text-2xl">1.</span> 
+                            <span class="flex-1">Нейрожелілер көмегімен педагогтердің қағазбастылығын азайту.</span>
+                            <span class="transform transition-transform duration-300 chevron text-darkRed text-xl">▼</span>
+                        </div>
+                        <div class="accordion-content font-playfair text-gray-700 text-base">
+                            Мұғалімдерге арнайы промпттар жазуды үйретіңіз. ЖИ-ге оқушы эссесін жүктеп: "Мына эссенің орфографиясын емес, аргументациясы мен логикасын 10 балдық жүйемен бағалап, 3 ұсыныс жаз" деп тапсырма беріңіз. Бұл сабақ жоспарлауға кететін уақытты 3-4 есе қысқартады.
+                        </div>
+                    </div>
+                    <!-- Item 2 -->
+                    <div class="bg-white rounded-xl shadow-md border-l-4 border-gold p-4 cursor-pointer hover:shadow-lg transition-shadow" onclick="toggleAccordion(this)">
+                        <div class="flex items-center gap-3 font-playfair text-lg text-darkBlue font-bold">
+                            <span class="text-gold text-2xl">2.</span> 
+                            <span class="flex-1">Дебат форматындағы әдебиет сабақтары (Адам капиталы).</span>
+                            <span class="transform transition-transform duration-300 chevron text-darkRed text-xl">▼</span>
+                        </div>
+                        <div class="accordion-content font-playfair text-gray-700 text-base">
+                            "Еңлік-Кебек" немесе "Көксерек" повесін жай мазмұндатпай, оқушыларды екі топқа бөліп, кейіпкерлердің іс-әрекетіне сот-дебат ұйымдастырыңыз. Бұл сөйлеу мәдениеті мен сыни ойлауды арттырады.
+                        </div>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="bg-white rounded-xl shadow-md border-l-4 border-gold p-4 cursor-pointer hover:shadow-lg transition-shadow" onclick="toggleAccordion(this)">
+                        <div class="flex items-center gap-3 font-playfair text-lg text-darkBlue font-bold">
+                            <span class="text-gold text-2xl">3.</span> 
+                            <span class="flex-1">"Анти-Плагиат" емес, "ЖИ-мен Коллаборация" ережесі.</span>
+                            <span class="transform transition-transform duration-300 chevron text-darkRed text-xl">▼</span>
+                        </div>
+                        <div class="accordion-content font-playfair text-gray-700 text-base">
+                            Оқушыларға ЖИ қолдануға рұқсат беріңіз, бірақ бір шартпен: ЖИ жазған мәтіннің қасына оқушы өз тарапынан талдау, адамдық эмоция мен ұлттық құндылық қосуы міндетті (Академиялық адалдық).
+                        </div>
+                    </div>
+                    <!-- Item 4 -->
+                    <div class="bg-white rounded-xl shadow-md border-l-4 border-gold p-4 cursor-pointer hover:shadow-lg transition-shadow" onclick="toggleAccordion(this)">
+                        <div class="flex items-center gap-3 font-playfair text-lg text-darkBlue font-bold">
+                            <span class="text-gold text-2xl">4.</span> 
+                            <span class="flex-1">Волонтерлік: Жоғары сыныптардың "Ертегі терапиясы".</span>
+                            <span class="transform transition-transform duration-300 chevron text-darkRed text-xl">▼</span>
+                        </div>
+                        <div class="accordion-content font-playfair text-gray-700 text-base">
+                            Жоғары сынып оқушыларына бастауыш сыныптарға немесе балалар үйіне барып қазақ ертегілерін мәнерлеп оқып беруді (волонтерлік қызмет) тапсырыңыз. Бұл эмпатия мен тілге құрметті оятады.
+                        </div>
+                    </div>
+                    <!-- Item 5 -->
+                    <div class="bg-white rounded-xl shadow-md border-l-4 border-gold p-4 cursor-pointer hover:shadow-lg transition-shadow" onclick="toggleAccordion(this)">
+                        <div class="flex items-center gap-3 font-playfair text-lg text-darkBlue font-bold">
+                            <span class="text-gold text-2xl">5.</span> 
+                            <span class="flex-1">Дәстүрлі эссені "Микро-подкастқа" алмастыру.</span>
+                            <span class="transform transition-transform duration-300 chevron text-darkRed text-xl">▼</span>
+                        </div>
+                        <div class="accordion-content font-playfair text-gray-700 text-base">
+                            Жазбаша эссенің орнына оқушылардан телефонға 3 минуттық аудио-подкаст (Байтұрсынов туралы өз ойы) жазып жіберуді сұраңыз. Бұл олардың дикциясы мен ауызша сөйлеуін дамытады.
+                        </div>
+                    </div>
+                    <!-- Item 6 -->
+                    <div class="bg-white rounded-xl shadow-md border-l-4 border-gold p-4 cursor-pointer hover:shadow-lg transition-shadow" onclick="toggleAccordion(this)">
+                        <div class="flex items-center gap-3 font-playfair text-lg text-darkBlue font-bold">
+                            <span class="text-gold text-2xl">6.</span> 
+                            <span class="flex-1">Классикалық әдебиеттен "Мем" және инфографика жасау.</span>
+                            <span class="transform transition-transform duration-300 chevron text-darkRed text-xl">▼</span>
+                        </div>
+                        <div class="accordion-content font-playfair text-gray-700 text-base">
+                            Абайдың қарасөздерін заманауи визуалды тілге (инфографикаға) аудару тапсырмасын беріңіз. Күрделі мәтінді құрылымдау – адам капиталының маңызды дағдысы.
+                        </div>
+                    </div>
+                    <!-- Item 7 -->
+                    <div class="bg-white rounded-xl shadow-md border-l-4 border-gold p-4 cursor-pointer hover:shadow-lg transition-shadow" onclick="toggleAccordion(this)">
+                        <div class="flex items-center gap-3 font-playfair text-lg text-darkBlue font-bold">
+                            <span class="text-gold text-2xl">7.</span> 
+                            <span class="flex-1">Қатысу бюджеті: Әдеби бұрыш дизайнын оқушыларға беру.</span>
+                            <span class="transform transition-transform duration-300 chevron text-darkRed text-xl">▼</span>
+                        </div>
+                        <div class="accordion-content font-playfair text-gray-700 text-base">
+                            Мектеп дәлізіндегі "Алаш" бұрышын жасақтауды мұғалімдер емес, оқушылар өздері жобалап, қорғап шықсын. Бұл демократиялық құндылықтарды іс жүзінде көрсетеді.
+                        </div>
+                    </div>
+                    <!-- Item 8 -->
+                    <div class="bg-white rounded-xl shadow-md border-l-4 border-gold p-4 cursor-pointer hover:shadow-lg transition-shadow" onclick="toggleAccordion(this)">
+                        <div class="flex items-center gap-3 font-playfair text-lg text-darkBlue font-bold">
+                            <span class="text-gold text-2xl">8.</span> 
+                            <span class="flex-1">Анонимді "Peer-review" (бірін-бірі бағалау).</span>
+                            <span class="transform transition-transform duration-300 chevron text-darkRed text-xl">▼</span>
+                        </div>
+                        <div class="accordion-content font-playfair text-gray-700 text-base">
+                            Оқушылардың шығармаларын есімдерін жасырып бір-біріне тексеруге беріңіз. Олар қате іздеу арқылы грамматиканы жақсырақ меңгереді әрі сыни бағалауға үйренеді.
+                        </div>
+                    </div>
+                    <!-- Item 9 -->
+                    <div class="bg-white rounded-xl shadow-md border-l-4 border-gold p-4 cursor-pointer hover:shadow-lg transition-shadow" onclick="toggleAccordion(this)">
+                        <div class="flex items-center gap-3 font-playfair text-lg text-darkBlue font-bold">
+                            <span class="text-gold text-2xl">9.</span> 
+                            <span class="flex-1">Экологиялық мәдениет: Табиғат аясындағы сабақтар.</span>
+                            <span class="transform transition-transform duration-300 chevron text-darkRed text-xl">▼</span>
+                        </div>
+                        <div class="accordion-content font-playfair text-gray-700 text-base">
+                            Жылына екі рет әдебиет сабағын кабинетте емес, саябақта немесе аулада өткізіп, табиғатты қорғау тақырыбындағы шығармаларды тікелей қоршаған ортамен байланыстырып оқытыңыз.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interactive Quiz Modal (10 Questions) -->
+    <div id="modal-quiz" class="modal-overlay fixed inset-0 z-[120] flex items-center justify-center bg-black/90 px-4 backdrop-blur-sm">
+        <div class="modal-content bg-sepia max-w-2xl w-full rounded-3xl border-4 border-darkBlue shadow-[0_0_40px_rgba(10,25,47,0.8)] relative flex flex-col p-6 h-[95vh] md:h-[85vh] overflow-hidden">
+            <button onclick="closeModal('modal-quiz')" class="absolute top-4 right-4 text-darkBlue hover:text-darkRed z-50 text-4xl font-bold drop-shadow-md">&times;</button>
+            
+            <div class="text-center mb-4">
+                <h3 class="font-playfair text-2xl md:text-3xl font-black text-darkRed border-b-2 border-gold pb-2 inline-block">Мектеп шамын жағу</h3>
+                <p class="font-caveat text-xl text-darkBlue mt-2">10 сұрақ. Әр дұрыс жауап 1 терезені жарықтандырады!</p>
+            </div>
+
+            <!-- SVG School with exactly 10 Windows -->
+            <div class="flex justify-center mb-6">
+                <svg viewBox="0 0 500 280" class="w-full max-w-[400px] drop-shadow-xl" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Main Building Base -->
+                    <rect x="50" y="80" width="400" height="200" fill="#0f172a" stroke="#D4AF37" stroke-width="4"/>
+                    <!-- Roof -->
+                    <polygon points="20,80 250,10 480,80" fill="#7f1d1d" stroke="#D4AF37" stroke-width="4"/>
+                    
+                    <!-- Door -->
+                    <rect x="210" y="200" width="80" height="80" fill="#334155" stroke="#D4AF37" stroke-width="2"/>
+                    <circle cx="275" cy="245" r="4" fill="#D4AF37" />
+
+                    <!-- Top Floor Windows (0 to 4) -->
+                    <rect id="win-0" x="90" y="110" width="45" height="45" class="school-window" rx="4"/>
+                    <rect id="win-1" x="160" y="110" width="45" height="45" class="school-window" rx="4"/>
+                    <rect id="win-2" x="230" y="110" width="45" height="45" class="school-window" rx="4"/>
+                    <rect id="win-3" x="300" y="110" width="45" height="45" class="school-window" rx="4"/>
+                    <rect id="win-4" x="370" y="110" width="45" height="45" class="school-window" rx="4"/>
+
+                    <!-- Bottom Floor Windows (5, 6, 7, 8) + Attic (9) -->
+                    <rect id="win-5" x="90" y="180" width="45" height="45" class="school-window" rx="4"/>
+                    <rect id="win-6" x="160" y="180" width="45" height="45" class="school-window" rx="4"/>
+                    <rect id="win-7" x="300" y="180" width="45" height="45" class="school-window" rx="4"/>
+                    <rect id="win-8" x="370" y="180" width="45" height="45" class="school-window" rx="4"/>
+                    <rect id="win-9" x="230" y="45" width="40" height="25" class="school-window" rx="2"/> <!-- Attic window -->
+                </svg>
+            </div>
+
+            <div id="quiz-question-container" class="flex-1 overflow-y-auto custom-scroll pr-2 flex flex-col">
+                <h4 id="quiz-q-text" class="font-playfair text-xl font-bold text-darkBlue mb-4 text-center">Сұрақ осында тұрады</h4>
+                
+                <div id="quiz-options" class="flex flex-col gap-3">
+                    <!-- Options injected via JS -->
+                </div>
+
+                <button id="quiz-next-btn" onclick="nextQuizQuestion()" class="hidden mt-6 bg-darkBlue text-gold py-3 rounded-xl font-bold font-playfair hover:bg-opacity-90 transition w-full shadow-lg">
+                    Келесі Сұрақ ➔
+                </button>
+            </div>
+
+            <div id="quiz-result" class="hidden flex-1 flex flex-col items-center justify-center text-center">
+                <span class="text-6xl mb-4">🎓</span>
+                <h4 class="font-playfair text-3xl font-bold text-darkBlue mb-2">Нәтиже жоғары болсын!</h4>
+                <p class="font-playfair text-gray-700">Жаңа Конституцияның құндылықтарына негізделген мектебіміздің жарқын болашағы үшін шамдар жағылды.</p>
+                <button onclick="closeModal('modal-quiz')" class="mt-6 bg-darkRed text-white py-3 px-8 rounded-xl font-bold font-playfair hover:bg-opacity-90 transition shadow-lg">
+                    Мәреге жету
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="ticker-wrap h-10 flex items-center">
+        <div class="ticker font-playfair font-bold text-gold text-sm tracking-wide">
+            ҚАЗАҚСТАН РЕСПУБЛИКАСЫНЫҢ КОНСТИТУЦИЯСЫ (2026 ж. 15 наурыз) ✦ Адам капиталы – мемлекеттің басты байлығы. ✦ Жасанды интеллект және инновацияларды білім беруде дамыту стратегиялық басымдық болып табылады. ✦ Экологиялық мәдениет пен табиғатты қорғау әрбір азаматтың міндеті. ✦ Академиялық адалдық білім сапасының кепілі. ✦ Волонтерлік қызмет азаматтық қоғамның тірегі ретінде қорғалады. ✦ 
+            ҚАЗАҚСТАН РЕСПУБЛИКАСЫНЫҢ КОНСТИТУЦИЯСЫ (2026 ж. 15 наурыз) ✦ Адам капиталы...
+        </div>
+    </div>
+
+    <div class="fixed bottom-12 right-4 z-40 bg-darkBlue/80 backdrop-blur px-4 py-2 rounded-full border border-gold shadow-lg">
+        <p class="font-caveat text-gold text-lg tracking-wider">2026 ж. Гулнара Тыныштыковна</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script>
+        // Web Audio API for custom sound effects
+        let audioCtx;
+        function initAudio() {
+            if(!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        // Swipe Sound
+        function playSwipeSound() {
+            if(!audioCtx) return;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(150, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(40, audioCtx.currentTime + 0.1);
+            gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.1);
+        }
+
+        // Click/Modal Sound 
+        function playClickSound(type = 'normal') {
+            if(!audioCtx) return;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            
+            if (type === 'cyber') {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(1200, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(200, audioCtx.currentTime + 0.3);
+                gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+            } else {
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.2);
+                gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+            }
+            
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + (type==='cyber'? 0.3 : 0.2));
+        }
+
+        document.body.addEventListener('click', initAudio, { once: true });
+        document.body.addEventListener('touchstart', initAudio, { once: true });
+
+        // 10 Questions Array
+        const quizQuestions = [
+            {
+                q: "1. 2026 жылғы Конституция бойынша білім берудегі басты байлық не?",
+                opts: ["Адам капиталы", "Сандық технологиялар мен инфрақұрылым", "Академиялық үлгерім көрсеткіші"],
+                ans: 0
+            },
+            {
+                q: "2. Әдебиет сабағында адам капиталын дамыту дегеніміз не?",
+                opts: ["Көркем мәтінді жатқа айту машығын қалыптастыру", "Оқушының сыни ойлауы мен сөйлеу мәдениетін дамыту", "Шығармашылық жұмыстарды ЖИ арқылы тексеру"],
+                ans: 1
+            },
+            {
+                q: "3. Экологиялық мәдениетті әдебиетте қалай тиімді оқытуға болады?",
+                opts: ["Табиғатқа қатысты өлеңдерді мәнерлеп оқумен шектелу", "М. Әуезовтің «Көксерек» повесіндегі адам мен табиғат қатынасын қазіргі эко-мәселелермен байланыстырып талқылау", "Экологиялық терминдерді сөздік дәптерге жаздыру"],
+                ans: 1
+            },
+            {
+                q: "4. ЖИ заманында «Академиялық адалдық» қандай ұғыммен өлшенеді?",
+                opts: ["Технологиядан толықтай бас тарту және дәстүрлі оқытуға көшу", "ЖИ мәтіндерін сыни бағалау, қателіктерін (галлюцинация) тауып, адами талдау қосу", "Плагиатқа тексеру бағдарламаларын қатаңдату"],
+                ans: 1
+            },
+            {
+                q: "5. А. Байтұрсыновтың «Егіннің бастары» мысалында көкке қарап тұрған бидай ненің символы?",
+                opts: ["Жоғары мақсатқа ұмтылған өзіне сенімді тұлғаның", "Дәнсіз (білімсіз), тәкаппар адамның бейнесі", "Қоғамнан ерекшеленгісі келген дарынды жастың"],
+                ans: 1
+            },
+            {
+                q: "6. Қазақ тілі мұғалімі үшін Жасанды Интеллект кім?",
+                opts: ["Мұғалімді толық алмастыра алатын бағдарлама", "Уақытты үнемдеп, эссе бағалауға, тапсырма құрастыруға көмектесетін ассистент", "Тек ақпарат іздеуге арналған іздеу жүйесі (Google сияқты)"],
+                ans: 1
+            },
+            {
+                q: "7. Оқушының ЖИ мәтінін көшіргенін білгенде ең дұрыс әрекет:",
+                opts: ["Жұмысты қабылдамау және төмен баға қою", "Сол мәтінді түпнұсқамен салыстырып, қатесін таптыру (сыни ойлау тапсырмасы)", "ЖИ қолданбау туралы ереже жаздыру"],
+                ans: 1
+            },
+            {
+                q: "8. Әдебиеттегі «Волонтерлік қызмет» қалай көрініс табады?",
+                opts: ["Жоғары сынып оқушыларының бастауыш сыныптарға ертегі оқып беруі (эмпатия терапиясы)", "Оқушыларды мектеп ауласын тазалауға міндеттеу", "Сыныптан тыс шараларға тек үздік оқушыларды қатыстыру"],
+                ans: 0
+            },
+            {
+                q: "9. Заманауи қазақ тілі сабағының басты мақсаты:",
+                opts: ["Грамматикалық ережелерді мінсіз меңгерту", "Өз ойын еркін, сауатты, аргументті түрде жеткізетін тұлға тәрбиелеу", "Көркем шығармалардың хронологиясын жатқа білу"],
+                ans: 1
+            },
+            {
+                q: "10. «Қатысу бюджеті» (Participatory budgeting) мектепте қалай жүзеге асады?",
+                opts: ["Қаржылық шешімдерді тек әкімшіліктің қабылдауымен", "Әдеби бұрыш дизайнын оқушылардың жоба қорғауы арқылы шешу", "Қаражатты тек оқулықтар сатып алуға жұмсау"],
+                ans: 1
+            }
+        ];
+        
+        let currentQuizIndex = 0;
+
+        function initQuiz() {
+            currentQuizIndex = 0;
+            // Reset all 10 windows
+            for(let i=0; i<10; i++) {
+                const win = document.getElementById(`win-${i}`);
+                if(win) win.classList.remove('window-correct', 'window-incorrect');
+            }
+            document.getElementById('quiz-result').classList.add('hidden');
+            document.getElementById('quiz-question-container').classList.remove('hidden');
+            showQuizQuestion();
+        }
+
+        function showQuizQuestion() {
+            const qData = quizQuestions[currentQuizIndex];
+            document.getElementById('quiz-q-text').innerText = qData.q;
+            const optsContainer = document.getElementById('quiz-options');
+            optsContainer.innerHTML = '';
+            
+            qData.opts.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'w-full text-left p-3 md:p-4 rounded-xl border-2 border-darkBlue bg-white text-darkBlue font-playfair font-bold hover:bg-sepia transition-colors shadow-sm';
+                btn.innerText = opt;
+                btn.onclick = () => handleQuizAnswer(idx, btn);
+                optsContainer.appendChild(btn);
+            });
+            document.getElementById('quiz-next-btn').classList.add('hidden');
+        }
+
+        function handleQuizAnswer(selectedIndex, btnElement) {
+            const optsContainer = document.getElementById('quiz-options');
+            // Disable all buttons
+            Array.from(optsContainer.children).forEach(b => b.onclick = null);
+            
+            const qData = quizQuestions[currentQuizIndex];
+            const isCorrect = (selectedIndex === qData.ans);
+            
+            // Map question index directly to window ID (0 to 9)
+            const win = document.getElementById(`win-${currentQuizIndex}`);
+
+            if (isCorrect) {
+                btnElement.classList.add('bg-green-100', 'border-green-500', 'text-green-800');
+                if(win) win.classList.add('window-correct');
+                playClickSound('normal'); 
+            } else {
+                btnElement.classList.add('bg-red-100', 'border-red-500', 'text-red-800');
+                // Highlight correct answer
+                optsContainer.children[qData.ans].classList.add('bg-green-100', 'border-green-500');
+                if(win) win.classList.add('window-incorrect');
+                playClickSound('cyber'); 
+            }
+            
+            document.getElementById('quiz-next-btn').classList.remove('hidden');
+        }
+
+        function nextQuizQuestion() {
+            currentQuizIndex++;
+            playClickSound('normal');
+            if (currentQuizIndex < quizQuestions.length) {
+                showQuizQuestion();
+            } else {
+                document.getElementById('quiz-question-container').classList.add('hidden');
+                document.getElementById('quiz-result').classList.remove('hidden');
+            }
+        }
+
+        const swiper = new Swiper('.mySwiper', {
+            effect: 'coverflow',
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: 'auto',
+            coverflowEffect: {
+                rotate: 50,
+                stretch: 0,
+                depth: 100,
+                modifier: 1,
+                slideShadows: true,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            on: {
+                slideChange: function () {
+                    playSwipeSound();
+                }
+            }
+        });
+
+        function openModal(modalId) {
+            playClickSound(modalId.includes('ai') ? 'cyber' : 'normal');
+            const modal = document.getElementById(modalId);
+            if(modal) {
+                modal.classList.add('active');
+            }
+        }
+
+        function closeModal(modalId) {
+            playSwipeSound(); 
+            const modal = document.getElementById(modalId);
+            if(modal) {
+                modal.classList.remove('active');
+            }
+        }
+
+        function toggleAccordion(element) {
+            playClickSound('normal');
+            const content = element.querySelector('.accordion-content');
+            const chevron = element.querySelector('.chevron');
+            
+            // Close other open accordions
+            document.querySelectorAll('.accordion-content').forEach(el => {
+                if (el !== content && el.classList.contains('open')) {
+                    el.classList.remove('open');
+                    el.previousElementSibling.querySelector('.chevron').style.transform = 'rotate(0deg)';
+                }
+            });
+
+            // Toggle current
+            if (content.classList.contains('open')) {
+                content.classList.remove('open');
+                chevron.style.transform = 'rotate(0deg)';
+            } else {
+                content.classList.add('open');
+                chevron.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', function(e) {
+                if(e.target === this) {
+                    this.classList.remove('active');
+                    playSwipeSound();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
